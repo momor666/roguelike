@@ -14,6 +14,23 @@ fullscreen = False
 tcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, window_title, fullscreen)
 
 tcod.sys_set_fps(LIMIT_FPS)
+player_x = SCREEN_WIDTH // 2
+player_y = SCREEN_HEIGHT // 2
+
+def handle_keys():
+    global player_x, player_y
+
+    # Player Movement
+    if tcod.console_is_key_pressed(tcod.KEY_UP):
+        player_y = player_y - 1
+    elif tcod.console_is_key_pressed(tcod.KEY_DOWN):
+        player_y = player_y + 1
+    elif tcod.console_is_key_pressed(tcod.KEY_LEFT):
+        player_x = player_x - 1
+    elif tcod.console_is_key_pressed(tcod.KEY_RIGHT):
+        player_x = player_x + 1
+
+
 while not tcod.console_is_window_closed():
     tcod.console_set_default_foreground(0, tcod.white)
     tcod.console_put_char(0, 1, 1, '@', tcod.BKGND_NONE)
