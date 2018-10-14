@@ -12,6 +12,7 @@ tcod.console_set_custom_font(font_path, font_flags)
 window_title = 'Roguelike'
 fullscreen = False
 tcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, window_title, fullscreen)
+con = tcod.console_new(SCREEN_WIDTH, SCREEN_HEIGHT) # Offscreen console
 
 tcod.sys_set_fps(LIMIT_FPS)
 player_x = SCREEN_WIDTH // 2
@@ -45,12 +46,12 @@ def handle_keys():
 
 while not tcod.console_is_window_closed():
     tcod.console_set_default_foreground(0, tcod.white)
-    tcod.console_put_char(0, player_x, player_y, '@', tcod.BKGND_NONE)
-
+    tcod.console_put_char(con, player_x, player_y, '@', tcod.BKGND_NONE)
+    tcod.console_blit(con, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0) # Push to the root console
     tcod.console_flush() # Present changes to the screen
 
     # Handle keys and exit game if required:
-    tcod.console_put_char(0, player_x, player_y, ' ', tcod.BKGND_NONE)
+    tcod.console_put_char(con, player_x, player_y, ' ', tcod.BKGND_NONE)
     exit = handle_keys()
     if exit:
         break
