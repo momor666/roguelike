@@ -20,6 +20,13 @@ player_y = SCREEN_HEIGHT // 2
 def handle_keys():
     global player_x, player_y
 
+    key = tcod.console_check_for_keypress()
+    if key.vk == tcod.KEY_ENTER and key.lalt:
+        # Alt + Enter: toggle fullscreen
+        tcod.console_set_fullscreen(not tcod.console_is_fullscreen())
+    elif key.vk == tcod.KEY_ESCAPE:
+        return True  # Exit Game
+
     # Player Movement
     if tcod.console_is_key_pressed(tcod.KEY_UP):
         player_y = player_y - 1
